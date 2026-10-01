@@ -1,4 +1,4 @@
-import java.util.Stack;
+import java.util.*;
 
 class Solution {
     public boolean isValid(String s) {
@@ -6,34 +6,25 @@ class Solution {
 
         for (char c : s.toCharArray()) {
 
-            // Opening brackets → push into stack
-            if (c == '(' || c == '{' || c == '[') {
-                stack.push(c);
+            // Opening brackets
+            if (c == '(') {
+                stack.push(')');
+            } 
+            else if (c == '[') {
+                stack.push(']');
+            } 
+            else if (c == '{') {
+                stack.push('}');
             }
 
             // Closing brackets
             else {
-                if (stack.isEmpty()) {
-                    return false;
-                }
-
-                char top = stack.pop();
-
-                if (c == ')' && top != '(') {
-                    return false;
-                }
-
-                if (c == '}' && top != '{') {
-                    return false;
-                }
-
-                if (c == ']' && top != '[') {
+                if (stack.isEmpty() || stack.pop() != c) {
                     return false;
                 }
             }
         }
 
-        // Stack should be empty at the end
         return stack.isEmpty();
     }
 }
